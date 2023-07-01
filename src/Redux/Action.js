@@ -43,12 +43,12 @@ export const getUserObj=(data)=>{
 }
 
 
-
+const jsonServerUrl = process.env.JSON_SERVER_URL || 'http://localhost:8000';
 export const FetchUserList=()=>{
     return (dispatch)=>{
       dispatch(makeRequest());
       //setTimeout(() => {
-        axios.get('http://localhost:8000/user').then(res=>{
+        axios.get(`${jsonServerUrl}/user`).then(res=>{
             const userlist=res.data;
             dispatch(geUserList(userlist));
           }).catch(err=>{
@@ -63,7 +63,7 @@ export const Removeuser=(code)=>{
     return (dispatch)=>{
       dispatch(makeRequest());
       //setTimeout(() => {
-        axios.delete('http://localhost:8000/user/'+code).then(res=>{
+        axios.delete(`${jsonServerUrl}/user`+code).then(res=>{
             dispatch(deleteUser());
           }).catch(err=>{
             dispatch(failRequest(err.message))
@@ -77,7 +77,7 @@ export const FunctionAddUser=(data)=>{
     return (dispatch)=>{
       dispatch(makeRequest());
       //setTimeout(() => {
-        axios.post('http://localhost:8000/user',data).then(res=>{
+        axios.post(`${jsonServerUrl}/user`,data).then(res=>{
             dispatch(addUser());
             toast.success('User Added successfully.')
           }).catch(err=>{
@@ -92,7 +92,7 @@ export const FunctionUpdateUser=(data,code)=>{
     return (dispatch)=>{
       dispatch(makeRequest());
       //setTimeout(() => {
-        axios.put('http://localhost:8000/user/'+code,data).then(res=>{
+        axios.put(`${jsonServerUrl}/user`+code,data).then(res=>{
             dispatch(updateUser());
             toast.success('User Updated successfully.')
           }).catch(err=>{
@@ -106,7 +106,7 @@ export const FetchUserObj=(code)=>{
     return (dispatch)=>{
       dispatch(makeRequest());
       //setTimeout(() => {
-        axios.get('http://localhost:8000/user/'+code).then(res=>{
+        axios.get(`${jsonServerUrl}/user`+code).then(res=>{
             const userlist=res.data;
             dispatch(getUserObj(userlist));
           }).catch(err=>{
